@@ -4,14 +4,14 @@ import argparse
 from sys import argv
 from Graph import Graph
 from PageRank import PageRank
+from numpy import float64
 
-from numpy import float32
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("mode", choices=["pagerank", "hits"], help="run the PageRank or the HITS algorithm")
     parser.add_argument("-nt", "--no_teleports", action="store_true", help="run the pagerank algorithm without random teleports")
-    parser.add_argument("-tp", "--teleport_prob", type=float32, default=0.1, help="specify the teleport probability")
+    parser.add_argument("-tp", "--teleport_prob", type=float64, default=0.1, help="specify the teleport probability")
     parser.add_argument("-it", "--iterations", type=int, default=None, help="specify the number of pagerank power iterations")
     parser.add_argument("-f", "--file", required=True, help="specify the input graph file")
     args = parser.parse_args()
