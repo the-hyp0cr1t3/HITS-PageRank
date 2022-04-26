@@ -4,10 +4,20 @@ import numpy.typing as npt
 from numpy import linalg as LA
 
 class PageRank:
+    """Given a directed graph, computes the page ranks of each node
+
+    Attributes:
+        g (Graph): A directed graph
+        alpha (np.float64): The random vertex teleport probability (zero if not allowed)
+        iterations (int): The number of iterations to perform in matrix power method, None otherwise
+        prob_matrix (npt.NDArray[np.float64]): The computed NxN transition probability matrix
+        pageranks (npt.NDArray[np.float64]): The pageranks of the nodes
+    """
     g: Graph
     alpha: np.float64
     iterations: int
     prob_matrix: npt.NDArray[np.float64]
+    pageranks: npt.NDArray[np.float64]
 
     def __init__(self, g: Graph, teleport_prob: np.float64, iterations: int) -> None:
         """Constructor
@@ -22,8 +32,11 @@ class PageRank:
         self.iterations = iterations
         self.build()
 
-    def build(self) -> None:
+    def build(self) -> npt.NDArray[np.float64]:
         """Builds the transition probability matrix and computes the pageranks of each node
+
+        Returns:
+            npt.NDArray[np.float64]: The pageranks of the nodes
         """
         # here prob_matrix[i, j] = alpha / n + adj[i, j] * (1 - alpha) / sum(adj[i])
         f = lambda i, j: self.alpha / self.g.n + self.g.adj[i, j] * (1 - self.alpha) / sum(self.g.adj[i])
@@ -39,6 +52,8 @@ class PageRank:
 
         # normalize
         self.pageranks = principal_left_eig / sum(principal_left_eig)
+
+        return self.pageranks
 
     def __str__(self) -> str:
         """String representation of the object
