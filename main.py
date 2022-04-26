@@ -6,7 +6,6 @@ from Graph import Graph
 from PageRank import PageRank
 from numpy import float64
 
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("mode", choices=["pagerank", "hits"], help="run the PageRank or the HITS algorithm")
