@@ -1,0 +1,51 @@
+from Graph import Graph
+import numpy as np
+import numpy.typing as npt
+from numpy import linalg as LA
+
+class PageRank:
+    g: Graph
+    alpha: np.float64
+    iterations: int
+    prob_matrix: npt.NDArray[np.float64]
+
+    def __init__(self, g: Graph, teleport_prob: np.float64, iterations: int) -> None:
+        """Constructor
+
+        Args:
+            g (Graph): A directed graph
+            teleport_prob (np.float64): The probability to teleport to a random node (alpha)
+            iterations (int): The number of iterations to perform in matrix power method, None otherwise
+        """
+        self.g = g
+        self.alpha = teleport_prob
+        self.iterations = iterations
+        self.build()
+
+    def build(self) -> None:
+        """Builds the transition probability matrix and computes the pageranks of each node
+        """
+        # here prob_matrix[i, j] = alpha / n + adj[i, j] * (1 - alpha) / sum(adj[i])
+        f = lambda i, j: self.alpha / self.g.n + self.g.adj[i, j] * (1 - self.alpha) / sum(self.g.adj[i])
+        # vectorize creation using the above lambda to create the NxN transition probability matrix
+        self.prob_matrix = np.fromfunction(np.vectorize(f), (self.g.n, self.g.n), dtype=int)
+
+        # finding principal left eigenvector
+        if self.iterations: # using power iteration method if iterations are specified
+            principal_left_eig = np.dot(np.ones(self.g.n), LA.matrix_power(self.prob_matrix, self.iterations))
+        else:               # directly compute using linear algebra
+            eigvalues, eigvectors = LA.eig(self.prob_matrix.T)
+            principal_left_eig = eigvectors[:, 0].T
+
+        # normalize
+        self.pageranks = principal_left_eig / sum(principal_left_eig)
+
+    def __str__(self) -> str:
+        """String representation of the object
+
+        Returns:
+            str: The string representation of the page ranks for nice printing
+        """
+        return self.pageranks.__str__()
+
+
