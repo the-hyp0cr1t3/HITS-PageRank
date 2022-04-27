@@ -33,7 +33,7 @@ class HITS:
         """Computes the hub and authority values of the nodes after the specified number of iterations
 
         Returns:
-            Tuple[npt.NDArray[np.float64], npt.NDArray[np.float64]]: _description_
+            Tuple[npt.NDArray[np.float64], npt.NDArray[np.float64]]: The hub and authority values of the nodes after the specified number of iterations
         """
         self.hub = np.ones((self.g.n,), dtype=np.float64)
         self.authority = np.ones((self.g.n,), dtype=np.float64)
