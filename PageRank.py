@@ -39,16 +39,18 @@ class PageRank:
             npt.NDArray[np.float64]: The pageranks of the nodes
         """
         # here prob_matrix[i, j] = alpha / n + adj[i, j] * (1 - alpha) / sum(adj[i])
-        f = lambda i, j: self.alpha / self.g.n + self.g.adj[i, j] * (1 - self.alpha) / sum(self.g.adj[i])
+        f = lambda i, j: self.alpha / self.g.n + (0.0 if sum(self.g.adj[i]) == 0 else self.g.adj[i, j] * (1 - self.alpha) / sum(self.g.adj[i]))
         # vectorize creation using the above lambda to create the NxN transition probability matrix
         self.prob_matrix = np.fromfunction(np.vectorize(f), (self.g.n, self.g.n), dtype=int)
+
+        print(self.prob_matrix)
 
         # finding principal left eigenvector
         if self.iterations: # using power iteration method if iterations are specified
             principal_left_eig = np.dot(np.ones(self.g.n), LA.matrix_power(self.prob_matrix, self.iterations))
         else:               # directly compute using linear algebra
             eigvalues, eigvectors = LA.eig(self.prob_matrix.T)
-            principal_left_eig = eigvectors[:, 0].T
+            principal_left_eig = eigvectors[:, np.argmax(eigvalues)].T
 
         # normalize
         self.pageranks = principal_left_eig / sum(principal_left_eig)
