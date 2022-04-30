@@ -48,12 +48,12 @@ def build_inv_idx_table(docs: List[str]) -> DefaultDict[str, Set[int]]:
 	return inv_idx
 
 
-def find_base_set(g: Graph, inv_idx_table: DefaultDict[str, Set[int]], query: List[str]):
+def find_base_set(g: Graph, inv_idx: DefaultDict[str, Set[int]], query: List[str]):
 	"""Finds the base set by first finding the root set from the query and then extending it
 
 	Args:
 		g (Graph): A directed graph
-		inv_idx_table (DefaultDict[str, Set[int]]): The inverted index table
+		inv_idx (DefaultDict[str, Set[int]]): The inverted index table
 		query (List[str]): The tokenized list of query terms
 
 	Returns:
@@ -63,8 +63,8 @@ def find_base_set(g: Graph, inv_idx_table: DefaultDict[str, Set[int]], query: Li
 	# Constructing the root set
 	is_root_set = [False] * g.n
 	for word in query:
-		if word in inv_idx_table:
-			for docid in inv_idx_table[word]:
+		if word in inv_idx:
+			for docid in inv_idx[word]:
 				is_root_set[docid] = True
 		else:
 			print(f'No occurrences of {word} found.')

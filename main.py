@@ -36,7 +36,7 @@ if __name__ == "__main__":
 	if args.file.endswith('gpickle'):
 		docs = graph.read_gpickle(args.file)
 		if docs:
-			table = build_inv_idx_table(docs)
+			inv_idx = build_inv_idx_table(docs)
 	else:
 		graph.read_graph(args.file)
 
@@ -45,7 +45,7 @@ if __name__ == "__main__":
 		print(PageRank(graph, args.teleport_prob, args.iterations))
 
 	elif args.mode == 'hits':
-		assert table, "Inverted index table could not be built."
+		assert inv_idx, "Inverted index table could not be built."
 		query = input('Enter query expression: ')
-		graph = find_base_set(graph, table, tokenize(query))
+		graph = find_base_set(graph, inv_idx, tokenize(query))
 		print(HITS(graph, args.iterations))
