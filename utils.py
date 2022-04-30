@@ -16,7 +16,6 @@ def tokenize(data: str) -> List[str]:
 	"""
 
 	# get tokens using nltk tokenize
-	print(f'data = {data}')
 	tokens = nltk.word_tokenize(data)
 
 	# initialize stemmer
