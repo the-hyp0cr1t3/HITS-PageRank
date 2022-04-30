@@ -56,12 +56,12 @@ class Graph:
 	def read_gpickle(self, filename: str) -> List[str]:
 		"""Reads graphs from files in gpickle format and returns the associated data/documents if any
 
-        Args:
+		Args:
 			filename (str): The path to the file to be read
 
-        Returns:
-            List[str]: A list of documents corresponding to the nodes
-        """
+		Returns:
+			List[str]: A list of documents corresponding to the nodes
+		"""
 
 		graph = nx.read_gpickle(filename)
 		self.n = len(graph.nodes())
