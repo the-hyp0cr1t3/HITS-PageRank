@@ -6,6 +6,7 @@ from Graph import Graph
 from PageRank import PageRank
 from HITS import HITS
 from numpy import float64
+from utils import build_inv_idx_table, find_root_set
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -33,7 +34,9 @@ if __name__ == "__main__":
 
     graph = Graph()
     if args.file.endswith('gpickle'):
-        graph.read_gpickle(args.file)
+        docs = graph.read_gpickle(args.file)
+        if docs:
+            table = build_inv_idx_table(docs)
     else:
         graph.read_graph(args.file)
 
@@ -41,4 +44,13 @@ if __name__ == "__main__":
     if args.mode == 'pagerank':
         print(PageRank(graph, args.teleport_prob, args.iterations))
     elif args.mode == 'hits':
-        print(HITS(graph, args.iterations))
+        assert table, "Inverted index table could not be built"
+        print(table.keys())
+        query = input('Enter query expression: ').split()
+        print(f'query = {query}')
+        graph = find_root_set(graph, table, query)
+        import numpy
+        import sys
+        numpy.set_printoptions(threshold=sys.maxsize)
+        print(graph)
+        # print(HITS(graph, args.iterations))

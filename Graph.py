@@ -54,16 +54,21 @@ class Graph:
 
         return res
 
-    def read_gpickle(self, filename: str) -> None:
+    def read_gpickle(self, filename: str) -> List[str]:
         """Reads graphs from files in gpickle format
-
+TODO
         Args:
             filename (str): The path to the file to be read
         """
         graph = nx.read_gpickle(filename)
+        print(graph.nodes())
         self.n = len(graph.nodes())
         self.m = len(graph.edges())
         self.adj = nx.to_numpy_array(graph, dtype=np.ubyte)
+        docs = nx.get_node_attributes(graph, 'page_content')
+        if docs:
+            [ docs[i] for i in range(self.n) ]
+        return docs
 
     def read_graph(self, filename: str) -> None:
         """Reads graphs from files in the format
