@@ -5,6 +5,9 @@ from Graph import Graph
 from typing import Tuple, List, Set, DefaultDict
 from collections import defaultdict
 
+nltk.download('punkt')
+nltk.download('stopwords')
+
 def tokenize(data: str) -> List[str]:
 	"""Preprocesses and tokenizes a string using nltk (stop word removal and stemming)
 
