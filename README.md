@@ -28,7 +28,7 @@ optional arguments:
 ```
 
 #### Examples:
-```
+```sh
 # Run HITS algorithm
 ./main.py hits --file HITS_web_graph.gpickle --iterations 50
 
