@@ -43,7 +43,7 @@ class PageRank:
 		# vectorize creation using the above lambda to create the NxN transition probability matrix
 		self.prob_matrix = np.fromfunction(np.vectorize(f), (self.g.n, self.g.n), dtype=int)
 
-		print(self.prob_matrix)
+		# print(self.prob_matrix)
 
 		# finding principal left eigenvector
 		if self.iterations: # using power iteration method if iterations are specified
