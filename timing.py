@@ -35,7 +35,7 @@ for iters in iters_ls:
         res.append([n, pgrktm * 1000, hitstm * 1000])
 
     df = pd.DataFrame(res, columns =['n', 'pagerank run_time (ms)', 'hits run_time (ms)'])
-    df.to_csv(os.path.join(DATA_PATH, f'n({n_min}-{n_max})_iters({iters}).txt'), index=False)
+    df.to_csv(os.path.join(DATA_PATH, f'n({n_min}-{n_max})_iters({iters}).csv'), index=False)
 
 """
 Pagerank:
