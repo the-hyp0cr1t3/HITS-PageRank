@@ -17,11 +17,11 @@ if __name__ == "__main__":
 	parser.add_argument("-f", "--file", required=True, help="specify the input graph file")
 	args = parser.parse_args()
 
-	if args.mode != 'pagerank' and ("--teleport_prob" in argv or "-tp" in argv):
+	if ((args.mode != 'pagerank') and (("--teleport_prob" in argv) or ("-tp" in argv))) == True:
 		parser.error('--teleport_prob can only be set when in pagerank mode')
 	if args.mode != 'pagerank' and args.no_teleports:
 		parser.error('--no_teleports can only be set when in pagerank mode')
-	if args.no_teleports and args.teleport_prob:
+	if args.no_teleports and (("--teleport_prob" in argv) or ("-tp" in argv) == True):
 		parser.error('--teleport_prob can only be set when teleports are allowed')
 	if args.mode == 'hits' and not args.iterations:
 		parser.error('--iterations is required when in hits mode')
