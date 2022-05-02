@@ -46,5 +46,3 @@ optional arguments:
 ```
 
 **Note:** `--file` must be in `./data`.
-
-![Timing analysis](./Timing_analysis.png)
