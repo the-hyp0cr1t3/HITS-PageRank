@@ -10,7 +10,14 @@ n_max = 150
 iters_ls = [10, 50, 100, 150, 200, 250, 300]
 DATA_PATH = os.path.join("..", "data", "benchmarks")
 
-fig, ax = plt.subplots(2, 2, constrained_layout=True)
+fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, constrained_layout=True)
+ax1.text(
+    x=52, y=10400, fontsize='12', color='grey',
+    s='$\\mathcal{O}(n^3)$ or $\\mathcal{O}(n^3 \\cdot \\mathrm{log}_2(iterations))$')
+ax3.text(
+    x=63, y=550, fontsize='12', color='grey',
+    s='$\\mathcal{O}(n^2 \\cdot iterations)$')
+
 for idx, iters in enumerate(iters_ls):
     df = pd.read_csv(os.path.join(DATA_PATH, f'n({n_min}-{n_max})_iters({iters}).csv'))
 
