@@ -60,7 +60,7 @@ def find_base_set(g: Graph, inv_idx: DefaultDict[str, Set[int]], query: List[str
 		query (List[str]): The tokenized list of query terms
 
 	Returns:
-		Graph: An induced subgraph of g, the base set
+		List[int]: The vertices in the base set
 	"""
 
 	# Constructing the root set
@@ -73,14 +73,14 @@ def find_base_set(g: Graph, inv_idx: DefaultDict[str, Set[int]], query: List[str
 			print(f'No occurrences of {word} found.')
 
 	# Constructing the base set by extending root set
-	base = Graph(g.n)
 	is_base_set = is_root_set.copy()
 	for u, v in g.edge_list:
 		if is_root_set[u]: 			# u ∈ root set, add child v to base set
 			is_base_set[v] = True
 		elif is_root_set[v]:		# v ∈ root set, add parent u to base set
 			is_base_set[u] = True
-		if is_base_set[u] and is_base_set[v]:
-			base.add_edge(u, v)
 
-	return base
+	print(f'root set = {[i for i in range(g.n) if is_root_set[i]]}')
+	print(f'base set = {[i for i in range(g.n) if is_base_set[i]]}')
+
+	return [ i for i, x in enumerate(is_base_set) if x ]

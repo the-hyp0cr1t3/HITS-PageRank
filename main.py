@@ -49,8 +49,27 @@ if __name__ == "__main__":
 	elif args.mode == 'hits':
 		assert inv_idx, "Inverted index table could not be built."
 		query = input('Enter query expression: ')
-		graph = find_base_set(graph, inv_idx, tokenize(query))
-		hits = HITS(graph, args.iterations)
+		base_nodes = find_base_set(graph, inv_idx, tokenize(query))
+		inv_id = { k: i for i, k in enumerate(base_nodes) }
+
+		base_graph = Graph(len(base_nodes))
+		for u, v in graph.edge_list:
+			if u in inv_id and v in inv_id:
+				base_graph.add_edge(inv_id[u], inv_id[v])
+
+		hits = HITS(base_graph, args.iterations)
 		print(hits)
-		print(f'Hub ordering: {argsort(hits.hub)[::-1]}')
-		print(f'Authority ordering: {argsort(hits.authority)[::-1]}')
+
+		hub_order = argsort(hits.hub)[::-1]
+		print(f'Hub ordering: { base_nodes[hub_order[0]] }', end=' ')
+		for i in range(1, len(base_nodes)):
+			print('>' if hits.hub[hub_order[i - 1]] > hits.hub[hub_order[i]] else '=', end=' ')
+			print(base_nodes[hub_order[i]], end=' ')
+		print()
+
+		auth_order = argsort(hits.authority)[::-1]
+		print(f'Authority ordering: { base_nodes[auth_order[0]] }', end=' ')
+		for i in range(1, len(base_nodes)):
+			print('>' if hits.authority[auth_order[i - 1]] > hits.authority[auth_order[i]] else '=', end=' ')
+			print(base_nodes[auth_order[i]], end=' ')
+		print()

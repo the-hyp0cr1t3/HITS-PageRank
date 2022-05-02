@@ -1,7 +1,8 @@
 from src.Graph import Graph
-from typing import Tuple
+from typing import List, Tuple
 import numpy as np
 import numpy.typing as npt
+from numpy import linalg as LA
 from itertools import repeat
 
 class HITS:
@@ -27,6 +28,8 @@ class HITS:
 		"""
 		self.g = g
 		self.iterations = iterations
+		self.hub = np.ones(self.g.n)
+		self.authority = np.ones(self.g.n)
 		self.build()
 
 	def build(self) -> Tuple[npt.NDArray[np.float64], npt.NDArray[np.float64]]:
@@ -35,15 +38,17 @@ class HITS:
 		Returns:
 			Tuple[npt.NDArray[np.float64], npt.NDArray[np.float64]]: The hub and authority values of the nodes after the specified number of iterations
 		"""
-		self.hub = np.ones((self.g.n,), dtype=np.float64)
-		self.authority = np.ones((self.g.n,), dtype=np.float64)
+		adj_adjT = np.matmul(self.g.adj, self.g.adj.T)
+		adjT_adj = np.matmul(self.g.adj.T, self.g.adj)
 
-		self.g.adj_T = self.g.adj.T
+		# self.hub = np.dot(LA.matrix_power(adj_adjT, self.iterations), self.hub)
+		# self.authority = np.dot(LA.matrix_power(adjT_adj, self.iterations), self.authority)
+
 		for _ in repeat(None, self.iterations):
 			# hub  = adj . auth
 			# auth = adjT . hub
-			self.hub = np.dot(self.authority, self.g.adj)
-			self.authority = np.dot(self.hub, self.g.adj_T)
+			self.hub = np.matmul(adj_adjT, self.hub)
+			self.authority = np.matmul(adjT_adj, self.authority)
 
 			# normalize
 			self.hub /= sum(self.hub)
