@@ -49,8 +49,6 @@ class HITS:
 		# self.authority /= sum(self.authority)
 
 		for _ in repeat(None, self.iterations):
-			# hub  = adj . auth
-			# auth = adjT . hub
 			self.hub = np.matmul(adj_adjT, self.hub)
 			self.authority = np.matmul(adjT_adj, self.authority)
 
