@@ -10,10 +10,10 @@ from src.Graph import Graph
 from src.PageRank import PageRank
 from src.HITS import HITS
 
-n_min = 3
-n_max = 150
-iters_ls = [10, 50, 100, 150, 200, 250, 300, 400]
-DATA_PATH = os.path.join("data", "benchmarks")
+n_min = 2
+n_max = 100
+iters_ls = [10, 50, 100, 200, 300]
+DATA_PATH = os.path.join("..", "data", "benchmarks")
 
 for iters in iters_ls:
 	print(f'iters = {iters}')

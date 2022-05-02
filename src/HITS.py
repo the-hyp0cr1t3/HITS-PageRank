@@ -41,18 +41,22 @@ class HITS:
 		adj_adjT = np.matmul(self.g.adj, self.g.adj.T)
 		adjT_adj = np.matmul(self.g.adj.T, self.g.adj)
 
-		# self.hub = np.dot(LA.matrix_power(adj_adjT, self.iterations), self.hub)
-		# self.authority = np.dot(LA.matrix_power(adjT_adj, self.iterations), self.authority)
+		self.hub = np.dot(LA.matrix_power(adj_adjT, self.iterations), self.hub)
+		self.authority = np.dot(LA.matrix_power(adjT_adj, self.iterations), self.authority)
 
-		for _ in repeat(None, self.iterations):
-			# hub  = adj . auth
-			# auth = adjT . hub
-			self.hub = np.matmul(adj_adjT, self.hub)
-			self.authority = np.matmul(adjT_adj, self.authority)
+		# normalize
+		self.hub /= sum(self.hub)
+		self.authority /= sum(self.authority)
 
-			# normalize
-			self.hub /= sum(self.hub)
-			self.authority /= sum(self.authority)
+		# for _ in repeat(None, self.iterations):
+		# 	# hub  = adj . auth
+		# 	# auth = adjT . hub
+		# 	self.hub = np.matmul(adj_adjT, self.hub)
+		# 	self.authority = np.matmul(adjT_adj, self.authority)
+
+		# 	# normalize
+		# 	self.hub /= sum(self.hub)
+		# 	self.authority /= sum(self.authority)
 
 		return self.hub, self.authority
 
