@@ -3,13 +3,14 @@ import os
 import networkx as nx
 import pandas as pd
 from random import randint
-from datetime import timedelta
 from timeit import timeit
-from Graph import Graph
-from PageRank import PageRank
-from HITS import HITS
+import sys
+sys.path.append('..')
+from src.Graph import Graph
+from src.PageRank import PageRank
+from src.HITS import HITS
 
-n_min = 2
+n_min = 3
 n_max = 150
 iters_ls = [10, 50, 100, 150, 200, 250, 300, 400]
 DATA_PATH = os.path.join("data", "benchmarks")
@@ -18,7 +19,7 @@ for iters in iters_ls:
     print(f'iters = {iters}')
     res = []
 
-    for n in range(2, 150, 2):
+    for n in range(n_min, n_max, 2):
         m = randint(1, n * (n - 1))
         G = nx.gnm_random_graph(n, m, seed=42, directed=True)
 

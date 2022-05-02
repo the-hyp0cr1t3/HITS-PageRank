@@ -1,4 +1,4 @@
-from Graph import Graph
+from src.Graph import Graph
 import numpy as np
 import numpy.typing as npt
 from numpy import linalg as LA

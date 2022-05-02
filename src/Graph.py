@@ -126,7 +126,7 @@ class Graph:
 
 
 if __name__ == "__main__":
-	DATA_PATH = "data"
+	DATA_PATH = os.path.join("..", "data")
 	g = Graph()
 	g.read_gpickle(os.path.join(DATA_PATH, "HITS_web_graph.gpickle"))
 	print(g)

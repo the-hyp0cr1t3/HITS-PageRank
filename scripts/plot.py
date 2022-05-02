@@ -8,7 +8,7 @@ sns.set_style("darkgrid")
 n_min = 2
 n_max = 150
 iters_ls = [10, 50, 100, 150, 200, 250, 300]
-DATA_PATH = os.path.join("data", "benchmarks")
+DATA_PATH = os.path.join("..", "data", "benchmarks")
 
 for idx, iters in enumerate(iters_ls):
     df = pd.read_csv(os.path.join(DATA_PATH, f'n({n_min}-{n_max})_iters({iters}).csv'))

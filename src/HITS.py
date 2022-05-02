@@ -1,4 +1,4 @@
-from Graph import Graph
+from src.Graph import Graph
 from typing import Tuple
 import numpy as np
 import numpy.typing as npt

@@ -2,11 +2,11 @@
 import os
 import argparse
 from sys import argv
-from Graph import Graph
-from PageRank import PageRank
-from HITS import HITS
+from src.Graph import Graph
+from src.PageRank import PageRank
+from src.HITS import HITS
 from numpy import float64, argsort
-from utils import tokenize, build_inv_idx_table, find_base_set
+from src.utils import tokenize, build_inv_idx_table, find_base_set
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser()

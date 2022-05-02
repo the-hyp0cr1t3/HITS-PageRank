@@ -1,7 +1,7 @@
 import nltk
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
-from Graph import Graph
+from src.Graph import Graph
 from typing import Tuple, List, Set, DefaultDict
 from collections import defaultdict
 
