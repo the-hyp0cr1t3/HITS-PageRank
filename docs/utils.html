@@ -30,9 +30,12 @@
 <pre><code class="python">import nltk
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
-from Graph import Graph
+from src.Graph import Graph
 from typing import Tuple, List, Set, DefaultDict
 from collections import defaultdict
+
+# nltk.download(&#39;punkt&#39;)
+# nltk.download(&#39;stopwords&#39;)
 
 def tokenize(data: str) -&gt; List[str]:
         &#34;&#34;&#34;Preprocesses and tokenizes a string using nltk (stop word removal and stemming)
@@ -157,7 +160,7 @@ def find_base_set(g: Graph, inv_idx: DefaultDict[str, Set[int]], query: List[str
 </details>
 </dd>
 <dt id="utils.find_base_set"><code class="name flex">
-<span>def <span class="ident">find_base_set</span></span>(<span>g: <a title="Graph.Graph" href="Graph.html#Graph.Graph">Graph</a>, inv_idx: DefaultDict[str, Set[int]], query: List[str])</span>
+<span>def <span class="ident">find_base_set</span></span>(<span>g: src.Graph.Graph, inv_idx: DefaultDict[str, Set[int]], query: List[str])</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Finds the base set by first finding the root set from the query and then extending it</p>
