@@ -13,12 +13,12 @@ DATA_PATH = os.path.join("..", "data", "benchmarks")
 fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, constrained_layout=True)
 
 for idx, iters in enumerate(iters_ls):
-    df = pd.read_csv(os.path.join(DATA_PATH, f'n({n_min}-{n_max})_iters({iters}).csv'))
+	df = pd.read_csv(os.path.join(DATA_PATH, f'n({n_min}-{n_max})_iters({iters}).csv'))
 
-    ax1.plot(df['n'], df['pagerank run_time (ms)'], label=f'{iters} iterations')
-    ax2.plot(df['n'], df['pagerank run_time (ms)'] ** (1/3), label=f'{iters} iterations')
-    ax3.plot(df['n'], df['hits run_time (ms)'], label=f'{iters} iterations')
-    ax4.plot(df['n'], df['hits run_time (ms)'] ** (1/2), label=f'{iters} iterations')
+	ax1.plot(df['n'], df['pagerank run_time (ms)'], label=f'{iters} iterations')
+	ax2.plot(df['n'], df['pagerank run_time (ms)'] ** (1/3), label=f'{iters} iterations')
+	ax3.plot(df['n'], df['hits run_time (ms)'], label=f'{iters} iterations')
+	ax4.plot(df['n'], df['hits run_time (ms)'] ** (1/2), label=f'{iters} iterations')
 
 ax1.text(x=52, y=10400, fontsize='12', color='grey', s='$\\mathcal{O}(n^3)$ or $\\mathcal{O}(n^3 \\cdot \\mathrm{log}_2(iterations))$')
 ax1.set_title('PageRank execution time vs n', fontsize='15')
