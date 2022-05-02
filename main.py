@@ -5,7 +5,7 @@ from sys import argv
 from Graph import Graph
 from PageRank import PageRank
 from HITS import HITS
-from numpy import float64
+from numpy import float64, argsort
 from utils import tokenize, build_inv_idx_table, find_base_set
 
 if __name__ == "__main__":
@@ -42,10 +42,15 @@ if __name__ == "__main__":
 
 
 	if args.mode == 'pagerank':
-		print(PageRank(graph, args.teleport_prob, args.iterations))
+		pg = PageRank(graph, args.teleport_prob, args.iterations)
+		print(f'Pageranks: {pg}')
+		print(f'Pagerank ordering: {argsort(pg.pageranks)[::-1]}')
 
 	elif args.mode == 'hits':
 		assert inv_idx, "Inverted index table could not be built."
 		query = input('Enter query expression: ')
 		graph = find_base_set(graph, inv_idx, tokenize(query))
-		print(HITS(graph, args.iterations))
+		hits = HITS(graph, args.iterations)
+		print(hits)
+		print(f'Hub ordering: {argsort(hits.hub)[::-1]}')
+		print(f'Authority ordering: {argsort(hits.authority)[::-1]}')
